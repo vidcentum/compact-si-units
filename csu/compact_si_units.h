@@ -842,128 +842,128 @@ namespace si_units_compact_representation_api {
   
   // SI Base Units, and, Radians, and Steradians.
   const Units encode_meter_unit();
-  inline bool is_meter(const Units& _u);
+  bool is_meter(const Units& _u);
   
   const Units encode_kilogram_unit();
-  inline bool is_kilogram(const Units& _u);
+  bool is_kilogram(const Units& _u);
   
   const Units encode_second_unit();
-  inline bool is_second(const Units& _u);
+  bool is_second(const Units& _u);
   
   const Units encode_ampere_unit();
-  inline bool is_ampere(const Units& _u);
+  bool is_ampere(const Units& _u);
   
   const Units encode_kelvin_unit();
-  inline bool is_kelvin(const Units& _u);
+  bool is_kelvin(const Units& _u);
   
   const Units encode_mole_unit();
-  inline bool is_mole(const Units& _u);
+  bool is_mole(const Units& _u);
   
   const Units encode_candela_unit();
-  inline bool is_candela(const Units& _u);
+  bool is_candela(const Units& _u);
   
   const Units encode_radian_unit();
-  inline bool is_radian(const Units& _u);
+  bool is_radian(const Units& _u);
   
   const Units encode_steradian_unit();
-  inline bool is_steradian(const Units& _u);
+  bool is_steradian(const Units& _u);
   
   // SI Derived Units.
   const Units encode_hertz_unit();
-  inline bool is_hertz(const Units& _u);
+  bool is_hertz(const Units& _u);
   
   const Units encode_area_unit();
-  inline bool is_area(const Units& _u);
+  bool is_area(const Units& _u);
   
   const Units encode_volume_unit();
-  inline bool is_volume(const Units& _u);
+  bool is_volume(const Units& _u);
   
   const Units encode_acceleration_unit();
-  inline bool is_acceleration(const Units& _u);
+  bool is_acceleration(const Units& _u);
   
   const Units encode_wave_number_unit();
-  inline bool is_wave_number(const Units& _u);
+  bool is_wave_number(const Units& _u);
   
   const Units encode_density_unit();
-  inline bool is_density(const Units& _u);
+  bool is_density(const Units& _u);
   
   const Units encode_specific_volume_unit();
-  inline bool is_specific_volume(const Units& _u);
+  bool is_specific_volume(const Units& _u);
   
   const Units encode_current_density_unit();
-  inline bool is_current_density(const Units& _u);
+  bool is_current_density(const Units& _u);
   
   const Units encode_magnetic_field_strength_unit();
-  inline bool is_magnetic_field_strength(const Units& _u);
+  bool is_magnetic_field_strength(const Units& _u);
   
   const Units encode_amount_of_substance_concentration_unit();
-  inline bool is_amount_of_substance_concentration(const Units& _u);
+  bool is_amount_of_substance_concentration(const Units& _u);
   
   const Units encode_luminance_unit();
-  inline bool is_luminance(const Units& _u);
+  bool is_luminance(const Units& _u);
   
   const Units encode_newton_unit();
-  inline bool is_newton(const Units& _u);
+  bool is_newton(const Units& _u);
   
   const Units encode_pascal_unit();
-  inline bool is_pascal(const Units& _u);
+  bool is_pascal(const Units& _u);
   
   const Units encode_joule_unit();
-  inline bool is_joule(const Units& _u);
+  bool is_joule(const Units& _u);
   
   const Units encode_watt_unit();
-  inline bool is_watt(const Units& _u);
+  bool is_watt(const Units& _u);
   
   const Units encode_coulomb_unit();
-  inline bool is_coulomb(const Units& _u);
+  bool is_coulomb(const Units& _u);
   
   const Units encode_volt_unit();
-  inline bool is_volt(const Units& _u);
+  bool is_volt(const Units& _u);
   
   const Units encode_farad_unit();
-  inline bool is_farad(const Units& _u);
+  bool is_farad(const Units& _u);
   
   const Units encode_ohm_unit();
-  inline bool is_ohm(const Units& _u);
+  bool is_ohm(const Units& _u);
   
   const Units encode_siemens_unit();
-  inline bool is_siemens(const Units& _u);
+  bool is_siemens(const Units& _u);
   
   const Units encode_weber_unit();
-  inline bool is_weber(const Units& _u);
+  bool is_weber(const Units& _u);
   
   const Units encode_tesla_unit();
-  inline bool is_tesla(const Units& _u);
+  bool is_tesla(const Units& _u);
   
   const Units encode_henry_unit();
-  inline bool is_henry(const Units& _u);
+  bool is_henry(const Units& _u);
   
   const Units encode_degree_celsius_unit();
-  inline bool is_degree_celsius(const Units& _u);
+  bool is_degree_celsius(const Units& _u);
   
   const Units encode_lumen_unit();
-  inline bool is_lumen(const Units& _u);
+  bool is_lumen(const Units& _u);
   
   const Units encode_lux_unit();
-  inline bool is_lux(const Units& _u);
+  bool is_lux(const Units& _u);
   
   const Units encode_count_unit();
-  inline bool is_count(const Units& _u);
+  bool is_count(const Units& _u);
   
   const Units encode_noise_spectral_density_unit();
-  inline bool is_noise_spectral_density(const Units& _u);
+  bool is_noise_spectral_density(const Units& _u);
   
   const Units encode_mass_fraction_unit();
-  inline bool is_mass_fraction(const Units& _u);
+  bool is_mass_fraction(const Units& _u);
   
   const Units encode_strain_unit();
-  inline bool is_strain(const Units& _u);
+  bool is_strain(const Units& _u);
   
   const Units encode_radiated_power_quantity_unit();
-  inline bool is_radiated_power_quantity(const Units& _u);
+  bool is_radiated_power_quantity(const Units& _u);
   
   const Units encode_switch_position_unit();
-  inline bool is_switch_position(const Units& _u);
+  bool is_switch_position(const Units& _u);
   
   std::tuple<bool, std::pair<std::string, std::string>> decode_units(const Units& _u);
 }

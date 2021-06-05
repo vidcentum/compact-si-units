@@ -408,7 +408,7 @@ namespace si_units_compact_representation_api {
     
     return u;
   }
-  inline bool is_meter(const Units& _u)
+  bool is_meter(const Units& _u)
   {
     return (_u == encode_meter_unit());
   }
@@ -433,7 +433,7 @@ namespace si_units_compact_representation_api {
     
     return u;
   }
-  inline bool is_kilogram(const Units& _u)
+  bool is_kilogram(const Units& _u)
   {
     return (_u == encode_kilogram_unit());
   }
@@ -458,7 +458,7 @@ namespace si_units_compact_representation_api {
     
     return u;
   }
-  inline bool is_second(const Units& _u)
+  bool is_second(const Units& _u)
   {
     return (_u == encode_second_unit());
   }
@@ -483,7 +483,7 @@ namespace si_units_compact_representation_api {
     
     return u;
   }
-  inline bool is_ampere(const Units& _u)
+  bool is_ampere(const Units& _u)
   {
     return (_u == encode_ampere_unit());
   }
@@ -508,7 +508,7 @@ namespace si_units_compact_representation_api {
     
     return u;
   }
-  inline bool is_kelvin(const Units& _u)
+  bool is_kelvin(const Units& _u)
   {
     return (_u == encode_kelvin_unit());
   }
@@ -533,7 +533,7 @@ namespace si_units_compact_representation_api {
     
     return u;
   }
-  inline bool is_mole(const Units& _u)
+  bool is_mole(const Units& _u)
   {
     return (_u == encode_mole_unit());
   }
@@ -558,7 +558,7 @@ namespace si_units_compact_representation_api {
     
     return u;
   }
-  inline bool is_candela(const Units& _u)
+  bool is_candela(const Units& _u)
   {
     return (_u == encode_candela_unit());
   }
@@ -583,7 +583,7 @@ namespace si_units_compact_representation_api {
     
     return u;
   }
-  inline bool is_radian(const Units& _u)
+  bool is_radian(const Units& _u)
   {
     return (_u == encode_radian_unit());
   }
@@ -608,7 +608,7 @@ namespace si_units_compact_representation_api {
     
     return u;
   }
-  inline bool is_steradian(const Units& _u)
+  bool is_steradian(const Units& _u)
   {
     return (_u == encode_steradian_unit());
   }
@@ -633,7 +633,7 @@ namespace si_units_compact_representation_api {
     
     return u;
   }
-  inline bool is_hertz(const Units& _u)
+  bool is_hertz(const Units& _u)
   {
     return (_u == encode_hertz_unit());
   }
@@ -658,7 +658,7 @@ namespace si_units_compact_representation_api {
     
     return u;
   }
-  inline bool is_area(const Units& _u)
+  bool is_area(const Units& _u)
   {
     return (_u == encode_area_unit());
   }
@@ -683,7 +683,7 @@ namespace si_units_compact_representation_api {
     
     return u;
   }
-  inline bool is_volume(const Units& _u)
+  bool is_volume(const Units& _u)
   {
     return (_u == encode_volume_unit());
   }
@@ -708,7 +708,7 @@ namespace si_units_compact_representation_api {
     
     return u;
   }
-  inline bool is_acceleration(const Units& _u)
+  bool is_acceleration(const Units& _u)
   {
     return (_u == encode_acceleration_unit());
   }
@@ -733,7 +733,7 @@ namespace si_units_compact_representation_api {
     
     return u;
   }
-  inline bool is_wave_number(const Units& _u)
+  bool is_wave_number(const Units& _u)
   {
     return (_u == encode_wave_number_unit());
   }
@@ -758,7 +758,7 @@ namespace si_units_compact_representation_api {
     u.kilograms       = 130; // (2 * <exponent of kilograms>) + 128
     return u;
   }
-  inline bool is_density(const Units& _u)
+  bool is_density(const Units& _u)
   {
     return (_u == encode_density_unit());
   }
@@ -783,7 +783,7 @@ namespace si_units_compact_representation_api {
     u.kilograms       = 126; // (2 * <exponent of kilograms>) + 128
     return u;
   }
-  inline bool is_specific_volume(const Units& _u)
+  bool is_specific_volume(const Units& _u)
   {
     return (_u == encode_specific_volume_unit());
   }
@@ -808,7 +808,7 @@ namespace si_units_compact_representation_api {
     u.amperes         = 130; // (2 * <exponent of amperes>) + 128
     return u;
   }
-  inline bool is_current_density(const Units& _u)
+  bool is_current_density(const Units& _u)
   {
     return (_u == encode_current_density_unit());
   }
@@ -833,7 +833,7 @@ namespace si_units_compact_representation_api {
     u.amperes         = 130; // (2 * <exponent of amperes>) + 128
     return u;
   }
-  inline bool is_magnetic_field_strength(const Units& _u)
+  bool is_magnetic_field_strength(const Units& _u)
   {
     return (_u == encode_magnetic_field_strength_unit());
   }
@@ -858,7 +858,7 @@ namespace si_units_compact_representation_api {
     u.moles           = 130; // (2 * <exponent of moles>) + 128
     return u;
   }
-  inline bool is_amount_of_substance_concentration(const Units& _u)
+  bool is_amount_of_substance_concentration(const Units& _u)
   {
     return (_u == encode_amount_of_substance_concentration_unit());
   }
@@ -883,7 +883,7 @@ namespace si_units_compact_representation_api {
     u.candelas        = 130; // (2 * <exponent of candelas>) + 128
     return u;
   }
-  inline bool is_luminance(const Units& _u)
+  bool is_luminance(const Units& _u)
   {
     return (_u == encode_luminance_unit());
   }
@@ -909,7 +909,7 @@ namespace si_units_compact_representation_api {
     u.seconds         = 124; // (2 * <exponent of seconds>) + 128
     return u;
   }
-  inline bool is_newton(const Units& _u)
+  bool is_newton(const Units& _u)
   {
     return (_u == encode_newton_unit());
   }
@@ -935,7 +935,7 @@ namespace si_units_compact_representation_api {
     u.seconds         = 124; // (2 * <exponent of seconds>) + 128
     return u;
   }
-  inline bool is_pascal(const Units& _u)
+  bool is_pascal(const Units& _u)
   {
     return (_u == encode_pascal_unit());
   }
@@ -961,7 +961,7 @@ namespace si_units_compact_representation_api {
     u.seconds         = 124; // (2 * <exponent of seconds>) + 128
     return u;
   }
-  inline bool is_joule(const Units& _u)
+  bool is_joule(const Units& _u)
   {
     return (_u == encode_joule_unit());
   }
@@ -987,7 +987,7 @@ namespace si_units_compact_representation_api {
     u.seconds         = 122; // (2 * <exponent of seconds>) + 128
     return u;
   }
-  inline bool is_watt(const Units& _u)
+  bool is_watt(const Units& _u)
   {
     return (_u == encode_watt_unit());
   }
@@ -1012,7 +1012,7 @@ namespace si_units_compact_representation_api {
     u.amperes         = 130; // (2 * <exponent of amperes>) + 128
     return u;
   }
-  inline bool is_coulomb(const Units& _u)
+  bool is_coulomb(const Units& _u)
   {
     return (_u == encode_coulomb_unit());
   }
@@ -1039,7 +1039,7 @@ namespace si_units_compact_representation_api {
     u.amperes         = 126; // (2 * <exponent of amperes>) + 128
     return u;
   }
-  inline bool is_volt(const Units& _u)
+  bool is_volt(const Units& _u)
   {
     return (_u == encode_volt_unit());
   }
@@ -1066,7 +1066,7 @@ namespace si_units_compact_representation_api {
     u.amperes         = 132; // (2 * <exponent of amperes>) + 128
     return u;
   }
-  inline bool is_farad(const Units& _u)
+  bool is_farad(const Units& _u)
   {
     return (_u == encode_farad_unit());
   }
@@ -1093,7 +1093,7 @@ namespace si_units_compact_representation_api {
     u.amperes         = 124; // (2 * <exponent of amperes>) + 128
     return u;
   }
-  inline bool is_ohm(const Units& _u)
+  bool is_ohm(const Units& _u)
   {
     return (_u == encode_ohm_unit());
   }
@@ -1120,7 +1120,7 @@ namespace si_units_compact_representation_api {
     u.amperes         = 132; // (2 * <exponent of amperes>) + 128
     return u;
   }
-  inline bool is_siemens(const Units& _u)
+  bool is_siemens(const Units& _u)
   {
     return (_u == encode_siemens_unit());
   }
@@ -1147,7 +1147,7 @@ namespace si_units_compact_representation_api {
     u.amperes         = 126; // (2 * <exponent of amperes>) + 128
     return u;
   }
-  inline bool is_weber(const Units& _u)
+  bool is_weber(const Units& _u)
   {
     return (_u == encode_weber_unit());
   }
@@ -1173,7 +1173,7 @@ namespace si_units_compact_representation_api {
     u.amperes         = 126; // (2 * <exponent of amperes>) + 128
     return u;
   }
-  inline bool is_tesla(const Units& _u)
+  bool is_tesla(const Units& _u)
   {
     return (_u == encode_tesla_unit());
   }
@@ -1200,7 +1200,7 @@ namespace si_units_compact_representation_api {
     u.amperes         = 124; // (2 * <exponent of amperes>) + 128
     return u;
   }
-  inline bool is_henry(const Units& _u)
+  bool is_henry(const Units& _u)
   {
     return (_u == encode_henry_unit());
   }
@@ -1225,7 +1225,7 @@ namespace si_units_compact_representation_api {
     u.kelvins         = 130; // (2 * <exponent of kelvins>) + 128
     return u;
   }
-  inline bool is_degree_celsius(const Units& _u)
+  bool is_degree_celsius(const Units& _u)
   {
     return (_u == encode_degree_celsius_unit());
   }
@@ -1250,7 +1250,7 @@ namespace si_units_compact_representation_api {
     u.candelas        = 130; // (2 * <exponent of candelas>) + 128
     return u;
   }
-  inline bool is_lumen(const Units& _u)
+  bool is_lumen(const Units& _u)
   {
      return (_u == encode_lumen_unit());
   }
@@ -1276,7 +1276,7 @@ namespace si_units_compact_representation_api {
     u.candelas        = 130; // (2 * <exponent of candelas>) + 128
     return u;
   }
-  inline bool is_lux(const Units& _u)
+  bool is_lux(const Units& _u)
   {
     return (_u == encode_lux_unit());
   }
@@ -1300,7 +1300,7 @@ namespace si_units_compact_representation_api {
     u.interpretation  = PUI_SI_UNITS;
     return u;
   }
-  inline bool is_count(const Units& _u)
+  bool is_count(const Units& _u)
   {
     return (_u == encode_count_unit());
   }
@@ -1327,7 +1327,7 @@ namespace si_units_compact_representation_api {
     u.amperes         = 126; // (2 * <exponent of amperes>) + 128
     return u;
   }
-  inline bool is_noise_spectral_density(const Units& _u)
+  bool is_noise_spectral_density(const Units& _u)
   {
     return (_u == encode_noise_spectral_density_unit());
   }
@@ -1352,7 +1352,7 @@ namespace si_units_compact_representation_api {
     
     return u;
   }
-  inline bool is_mass_fraction(const Units& _u)
+  bool is_mass_fraction(const Units& _u)
   {
     return (_u == encode_mass_fraction_unit());
   }
@@ -1377,7 +1377,7 @@ namespace si_units_compact_representation_api {
     
     return u;
   }
-  inline bool is_strain(const Units& _u)
+  bool is_strain(const Units& _u)
   {
     return (_u == encode_strain_unit());
   }
@@ -1403,7 +1403,7 @@ namespace si_units_compact_representation_api {
     u.seconds         = 122; // (2 * <exponent of seconds>) + 128
     return u;
   }
-  inline bool is_radiated_power_quantity(const Units& _u)
+  bool is_radiated_power_quantity(const Units& _u)
   {
     return (_u == encode_radiated_power_quantity_unit());
   }
@@ -1426,7 +1426,7 @@ namespace si_units_compact_representation_api {
     u.interpretation  = PUI_DIGITAL_DATA;
     return u;
   }
-  inline bool is_switch_position(const Units& _u)
+  bool is_switch_position(const Units& _u)
   {
     return (_u == encode_switch_position_unit());
   }
