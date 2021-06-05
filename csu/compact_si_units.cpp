@@ -7,84 +7,174 @@
 */
 /*========================END LICENSE NOTICE========================*/
 
+#include <iostream>
 #include "compact_si_units.h"
 
-std::map<std::string, std::string>
-g_si_unit_factor_display_sym_map_ {
-  
-  /* name       -         gui/print symbol */
-  { SI_PREFIX_DECA_STR,   "d" },
-  { SI_PREFIX_HECTO_STR,  "h" },
-  { SI_PREFIX_KILO_STR,   "k" },
-  { SI_PREFIX_MEGA_STR,   "M" },
-  { SI_PREFIX_GIGA_STR,   "G" },
-  { SI_PREFIX_TERA_STR,   "T" },
-  { SI_PREFIX_PETA_STR,   "P" },
-  { SI_PREFIX_EXA_STR,    "E" },
-  { SI_PREFIX_ZETTA_STR,  "Z" },
-  { SI_PREFIX_YOTTA_STR,  "Y" },
-  { SI_PREFIX_DECI_STR,   "d" },
-  { SI_PREFIX_CENTI_STR,  "c" },
-  { SI_PREFIX_MILLI_STR,  "m" },
-  { SI_PREFIX_MICRO_STR,  "µ" },
-  { SI_PREFIX_NANO_STR,   "n" },
-  { SI_PREFIX_PICO_STR,   "p" },
-  { SI_PREFIX_FEMTO_STR,  "f" },
-  { SI_PREFIX_ATTO_STR,   "a" },
-  { SI_PREFIX_ZEPTO_STR,  "z" },
-  { SI_PREFIX_YOCTO_STR,  "y" }
-  
-};
-
-std::map<std::string, std::string>
-g_si_unit_quantity_display_sym_map_ {
-  
-  /* name                     -                gui/print symbol */
-  { SI_METER_STR,                              "m"   },
-  { SI_KILOGRAM_STR,                           "kg"  },
-  { SI_SECOND_STR,                             "s"   },
-  { SI_AMPERE_STR,                             "A"   },
-  { SI_KELVIN_STR,                             "K"   },
-  { SI_MOLE_STR,                               "mol" },
-  { SI_CANDELA_STR,                            "cd"  },
-  { SI_RADIAN_STR,                             "rad" },
-  { SI_STERADIAN_STR,                          "sr"  },
-  { SI_HERTZ_STR,                              "Hz"  },
-  { SI_AREA_STR,                               "m\u00B2"           }, // m^2
-  { SI_VOLUME_STR,                             "m\u00B3"           }, // m^3
-  { SI_ACCELERATION_STR,                       "m.s\u207B\u00B2"   }, // m/s^2
-  { SI_WAVE_NUMBER_STR,                        "m\u207B\u00B9"     }, // 1/m
-  { SI_DENSITY_STR,                            "kg.m\u207B\u00B3"  }, // kg/m^3
-  { SI_SPECIFIC_VOLUME_STR,                    "m\u00B3.kg\u207B\u00B9" }, // m^3/kg
-  { SI_CURRENT_DENSITY_STR,                    "A.m\u207B\u00B2"   }, // A/m^2 
-  { SI_MAGNETIC_FIELD_STRENGTH_STR,            "A.m\u207B\u00B9"   }, // A/m  
-  { SI_AMOUNT_OF_SUBSTANCE_CONCENTRATION_STR,  "Mol.m\u207B\u00B3" }, // Mol/m^3 
-  { SI_LUMINANCE_STR,                          "cd.m\u207B\u00B2"  }, // cd/m^2 
-  { SI_NEWTON_STR,                             "N"   },
-  { SI_PASCAL_STR,                             "Pa"  },
-  { SI_JOULE_STR,                              "J"   },
-  { SI_WATT_STR,                               "W"   },
-  { SI_COULOMB_STR,                            "C"   },
-  { SI_VOLT_STR,                               "V"   },
-  { SI_FARAD_STR,                              "F"   },
-  { SI_OHM_STR,                                "Ω"   },
-  { SI_SIEMENS_STR,                            "S"   },
-  { SI_WEBER_STR,                              "Wb"  },
-  { SI_TESLA_STR,                              "T"   },
-  { SI_HENRY_STR,                              "H"   },
-  { SI_DEGREE_CELSIUS_STR,                     "°C"  },
-  { SI_LUMEN_STR,                              "lm"  },
-  { SI_LUX_STR,                                "lx"  },
-  { SI_NOISE_SPECTRAL_DENSITY_STR,             "V/√Hz"   }, // m^2.kg.s^–5/2.A^–1
-  { SI_MASS_FRACTION_STR,                      "mol/mol" },
-  { SI_STRAIN_STR,                             "m/m" },
-  { SI_RADIATED_POWER_QUANTITY_STR,            "Bel" }, // Bel (log10 W/W) W=m^2.kg.s^–3
-  { SI_COUNT_STR,                              ""    }, // Depends on the deployment.
-  { SI_SWITCH_POSITIONS_STR,                   "ON/OFF"  }
-    
-};
-
 namespace si_units_compact_representation_api {
+  
+  std::map<std::string, std::string>
+  g_si_unit_factor_display_sym_map_ {
+    
+    /* name       -         gui/print symbol */
+    { SI_PREFIX_DECA_STR,   "d" },
+    { SI_PREFIX_HECTO_STR,  "h" },
+    { SI_PREFIX_KILO_STR,   "k" },
+    { SI_PREFIX_MEGA_STR,   "M" },
+    { SI_PREFIX_GIGA_STR,   "G" },
+    { SI_PREFIX_TERA_STR,   "T" },
+    { SI_PREFIX_PETA_STR,   "P" },
+    { SI_PREFIX_EXA_STR,    "E" },
+    { SI_PREFIX_ZETTA_STR,  "Z" },
+    { SI_PREFIX_YOTTA_STR,  "Y" },
+    { SI_PREFIX_DECI_STR,   "d" },
+    { SI_PREFIX_CENTI_STR,  "c" },
+    { SI_PREFIX_MILLI_STR,  "m" },
+    { SI_PREFIX_MICRO_STR,  "µ" },
+    { SI_PREFIX_NANO_STR,   "n" },
+    { SI_PREFIX_PICO_STR,   "p" },
+    { SI_PREFIX_FEMTO_STR,  "f" },
+    { SI_PREFIX_ATTO_STR,   "a" },
+    { SI_PREFIX_ZEPTO_STR,  "z" },
+    { SI_PREFIX_YOCTO_STR,  "y" }
+    
+  };
+
+  std::map<std::string, std::string>
+  g_si_unit_quantity_display_sym_map_ {
+    
+    /* name                     -                gui/print symbol */
+    { SI_METER_STR,                              "m"   },
+    { SI_KILOGRAM_STR,                           "kg"  },
+    { SI_SECOND_STR,                             "s"   },
+    { SI_AMPERE_STR,                             "A"   },
+    { SI_KELVIN_STR,                             "K"   },
+    { SI_MOLE_STR,                               "mol" },
+    { SI_CANDELA_STR,                            "cd"  },
+    { SI_RADIAN_STR,                             "rad" },
+    { SI_STERADIAN_STR,                          "sr"  },
+    { SI_HERTZ_STR,                              "Hz"  },
+    { SI_AREA_STR,                               "m\u00B2"           }, // m^2
+    { SI_VOLUME_STR,                             "m\u00B3"           }, // m^3
+    { SI_ACCELERATION_STR,                       "m s\u207B\u00B2"   }, // m/s^2
+    { SI_WAVE_NUMBER_STR,                        "m\u207B\u00B9"     }, // 1/m
+    { SI_DENSITY_STR,                            "kg m\u207B\u00B3"  }, // kg/m^3
+    { SI_SPECIFIC_VOLUME_STR,                    "m\u00B3 kg\u207B\u00B9" }, // m^3/kg
+    { SI_CURRENT_DENSITY_STR,                    "A m\u207B\u00B2"   }, // A/m^2 
+    { SI_MAGNETIC_FIELD_STRENGTH_STR,            "A m\u207B\u00B9"   }, // A/m  
+    { SI_AMOUNT_OF_SUBSTANCE_CONCENTRATION_STR,  "mol m\u207B\u00B3" }, // Mol/m^3 
+    { SI_LUMINANCE_STR,                          "cd m\u207B\u00B2"  }, // cd/m^2 
+    { SI_NEWTON_STR,                             "N"   },
+    { SI_PASCAL_STR,                             "Pa"  },
+    { SI_JOULE_STR,                              "J"   },
+    { SI_WATT_STR,                               "W"   },
+    { SI_COULOMB_STR,                            "C"   },
+    { SI_VOLT_STR,                               "V"   },
+    { SI_FARAD_STR,                              "F"   },
+    { SI_OHM_STR,                                "Ω"   },
+    { SI_SIEMENS_STR,                            "S"   },
+    { SI_WEBER_STR,                              "Wb"  },
+    { SI_TESLA_STR,                              "T"   },
+    { SI_HENRY_STR,                              "H"   },
+    { SI_DEGREE_CELSIUS_STR,                     "°C"  },
+    { SI_LUMEN_STR,                              "lm"  },
+    { SI_LUX_STR,                                "lx"  },
+    { SI_NOISE_SPECTRAL_DENSITY_STR,             "V/√Hz"   }, // m^2.kg.s^–5/2.A^–1
+    { SI_MASS_FRACTION_STR,                      "mol/mol" },
+    { SI_STRAIN_STR,                             "m/m" },
+    { SI_RADIATED_POWER_QUANTITY_STR,            "Bel" }, // Bel (log10 W/W) W=m^2.kg.s^–3
+    { SI_COUNT_STR,                              ""    }, // Depends on the deployment.
+    { SI_SWITCH_POSITIONS_STR,                   "ON/OFF"  }
+      
+  };
+  
+  Units::Units ()
+  {
+    interpretation  = PUI_SI_UNITS;
+    radians         = 128;
+    steradians      = 128;
+    meters          = 128;
+    kilograms       = 128;
+    seconds         = 128;
+    amperes         = 128;
+    kelvins         = 128;
+    moles           = 128;
+    candelas        = 128;
+    extension       = 128;
+  }
+  
+  Units::Units (const Units& c)
+  {
+    interpretation  = c.interpretation;
+    radians         = c.radians;
+    steradians      = c.steradians;
+    meters          = c.meters;
+    kilograms       = c.kilograms;
+    seconds         = c.seconds;
+    amperes         = c.amperes;
+    kelvins         = c.kelvins;
+    moles           = c.moles;
+    candelas        = c.candelas;
+    extension       = c.extension;
+  }
+  
+  Units& Units::operator = (const Units& c)
+  {
+    interpretation  = c.interpretation;
+    radians         = c.radians;
+    steradians      = c.steradians;
+    meters          = c.meters;
+    kilograms       = c.kilograms;
+    seconds         = c.seconds;
+    amperes         = c.amperes;
+    kelvins         = c.kelvins;
+    moles           = c.moles;
+    candelas        = c.candelas;
+    extension       = c.extension;
+    
+    return *this;
+  }
+  
+  const bool Units::operator == (const Units& c) const
+  {
+    if ((interpretation  == c.interpretation)
+        && (radians      == c.radians)
+        && (steradians   == c.steradians)
+        && (meters       == c.meters)
+        && (kilograms    == c.kilograms)
+        && (seconds      == c.seconds)
+        && (amperes      == c.amperes)
+        && (kelvins      == c.kelvins)
+        && (moles        == c.moles)
+        && (candelas     == c.candelas)
+        && (extension    == c.extension)) {
+      
+      return true;
+    }    
+    return false;
+  }
+  
+  compact_si_units_t::compact_si_units_t(double _val, const std::string& _factor, const Units& _units)
+  {
+    measurement_val_ = _val;
+    si_factor_ = _factor;
+    si_units_  = _units;
+  }
+  
+  compact_si_units_t::compact_si_units_t (const compact_si_units_t& c)
+  {
+    measurement_val_ = c.measurement_val_;
+    si_factor_ = c.si_factor_;
+    si_units_  = c.si_units_;
+  }
+  
+  compact_si_units_t& compact_si_units_t::operator = (const compact_si_units_t& c)
+  {
+    measurement_val_ = c.measurement_val_;
+    si_factor_ = c.si_factor_;
+    si_units_  = c.si_units_;
+    
+    return *this;
+  }
   
   void si_units_assert_if(bool _b) 
   { 
@@ -1430,4 +1520,18 @@ namespace si_units_compact_representation_api {
   {
     return (_u == encode_switch_position_unit());
   }
-}
+  
+  std::tuple<bool, std::pair<std::string, std::string>> operator""_unit_sym(const char* _un, size_t _sz)
+  {
+    try {
+      std::tuple<bool, std::pair<std::string, std::string>>
+      du{true, {_un, g_si_unit_quantity_display_sym_map_.at(_un)}};
+      return du;
+    } catch (std::out_of_range& oee) {
+      std::tuple<bool, std::pair<std::string, std::string>>
+      du{false, {_un, ""}};
+      return du;
+    }
+  }
+  
+} // END of si_units_compact_representation_api namespace.
