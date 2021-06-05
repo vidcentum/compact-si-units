@@ -50,35 +50,44 @@ Please review the software before using it. You are welcome to contribute and im
 ```
   Example: test.cpp
   #include <iostream>
-  #include "csu/compact_si_units.h"  // drop the library in your source path.
-  
+  #include "csu/compact_si_units.h"
+
+  using namespace si_units_compact_representation_api;
+ 
   int main(int argc, char **argv)
   {
     // Unit representation only
-    Units my_sensor_unit = si_units_compact_representation_api::encode_meter_unit();
+    Units my_sensor_unit = encode_meter_unit();
 
     // Packing the sensor reading
-    compact_si_units_t my_sensor_reading (/* double */ 10.0, /* factor */ "milli", my_sensor_unit);
+    compact_si_units_t my_sensor_reading (/* double */ 10.1, /* factor */ SI_PREFIX_MILLI_STR, my_sensor_unit);
 
     // You can use your application serialization strategy (e.g., JSON, XML etc.) of the compact_si_units_t object.
 
     // Decoding the given units
-    auto [result, my_unit] = si_units_compact_representation_api::decode_units(my_sensor_unit);
+    auto [result, my_unit] = decode_units(my_sensor_unit);
 
-    // my_unit is an std::pair <unit_name, display_symbol>
+    // my_unit is std::pair<unit_name, display_symbol>
 
     // result is true (1) if the decoding of the Unit is successful with name of the unit and it print/gui symbol.
     if (result) {
-      std::cout << "my_sensor_unit: " << 10.0 << "m" << my_unit.second << std::endl;
+      std::cout << "my_sensor_unit: " << 10.1 << "m" << my_unit.second << std::endl;
     }
 
     // Checking a specific unit
-    if (si_units_compact_representation_api::is_meter(my_sensor_unit)) {
+    if (is_meter(my_sensor_unit)) {
       // Do some stuff...
     }
 
-   return 0;
- }
+    // To get the symbol of the unit.
+    auto [is_meter_sym, meter_unit_sym] = "meter"_unit_sym;
+
+    if (is_meter_sym) {
+      std::cout << "Symbol: " << meter_unit_sym.second << std::endl;
+    }
+
+    return 0;
+  }
 
 ```
 
