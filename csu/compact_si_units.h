@@ -11,9 +11,7 @@
 #define _CS_EDM_SYS_UTILS_COMPACT_SI_UNITS_H_
 
 #include <string>
-#include <cassert>  
 #include <map>
-#include <vector>
 #include <tuple>
 
 /* 
@@ -666,180 +664,132 @@
 
  
 */
-
-enum physical_units_interpretation_e {
-  PUI_SI_UNITS = 0,
-  PUI_RATIO_SI_UNITS = 1,
-  PUI_LOG10_SI_UNITS = 2,
-  PUI_LOG10_RATIO_SI_UNITS = 3,
-  PUI_DIGITAL_DATA = 4,
-  PUI_ARBITRARY = 5
-  
-  // 6–255 Reserved.
-};
-
-// SI UNIT PREFIXES
-const static std::string SI_PREFIX_DECA_STR    = "deca";
-const static std::string SI_PREFIX_HECTO_STR   = "hecto";
-const static std::string SI_PREFIX_KILO_STR    = "kilo";
-const static std::string SI_PREFIX_MEGA_STR    = "mega";
-const static std::string SI_PREFIX_GIGA_STR    = "giga";
-const static std::string SI_PREFIX_TERA_STR    = "tera";
-const static std::string SI_PREFIX_PETA_STR    = "peta";
-const static std::string SI_PREFIX_EXA_STR     = "exa";
-const static std::string SI_PREFIX_ZETTA_STR   = "zetta";
-const static std::string SI_PREFIX_YOTTA_STR   = "yotta";
-const static std::string SI_PREFIX_DECI_STR    = "deci";
-const static std::string SI_PREFIX_CENTI_STR   = "centi";
-const static std::string SI_PREFIX_MILLI_STR   = "milli";
-const static std::string SI_PREFIX_MICRO_STR   = "micro";
-const static std::string SI_PREFIX_NANO_STR    = "nano";
-const static std::string SI_PREFIX_PICO_STR    = "pico";
-const static std::string SI_PREFIX_FEMTO_STR   = "femto";
-const static std::string SI_PREFIX_ATTO_STR    = "atto";
-const static std::string SI_PREFIX_ZEPTO_STR   = "zepto";
-const static std::string SI_PREFIX_YOCTO_STR   = "yocto";
-
-// SI UNIT NAMES
-// Manifest =  1
-const static std::string SI_METER_STR     = "meter";
-const static std::string SI_KILOGRAM_STR  = "kilogram";
-const static std::string SI_SECOND_STR    = "second";
-const static std::string SI_AMPERE_STR    = "ampere";
-const static std::string SI_KELVIN_STR    = "kelvin";
-const static std::string SI_MOLE_STR      = "mole";
-const static std::string SI_CANDELA_STR   = "Candela";
-const static std::string SI_RADIAN_STR    = "radian";
-const static std::string SI_STERADIAN_STR = "steradian";
-
-const static std::string SI_HERTZ_STR     = "Hertz";
-const static std::string SI_AREA_STR      = "area";
-const static std::string SI_VOLUME_STR    = "volume";
-const static std::string SI_ACCELERATION_STR = "acceleration";
-const static std::string SI_WAVE_NUMBER_STR  = "wave_number";
-const static std::string SI_DENSITY_STR   = "density";
-const static std::string SI_SPECIFIC_VOLUME_STR  = "specific_volume";
-const static std::string SI_CURRENT_DENSITY_STR  = "current_density";
-const static std::string SI_MAGNETIC_FIELD_STRENGTH_STR  = "magnetic_field_strength";
-const static std::string SI_AMOUNT_OF_SUBSTANCE_CONCENTRATION_STR  = "amount_of_substance_concentration";
-const static std::string SI_LUMINANCE_STR = "luminance";
-const static std::string SI_NEWTON_STR    = "newton";
-const static std::string SI_PASCAL_STR    = "pascal";
-const static std::string SI_JOULE_STR     = "joule";
-const static std::string SI_WATT_STR      = "watt";
-const static std::string SI_COULOMB_STR   = "coulomb";
-const static std::string SI_VOLT_STR      = "volt";
-const static std::string SI_FARAD_STR     = "farad";
-const static std::string SI_OHM_STR       = "ohm";
-const static std::string SI_SIEMENS_STR   = "siemens";
-const static std::string SI_WEBER_STR     = "weber";
-const static std::string SI_TESLA_STR     = "tesla";
-const static std::string SI_HENRY_STR     = "henry";
-const static std::string SI_DEGREE_CELSIUS_STR = "degree_celsius";
-const static std::string SI_LUMEN_STR     = "lumen";
-const static std::string SI_LUX_STR       = "lux";
-const static std::string SI_COUNT_STR     = "count";
-const static std::string SI_NOISE_SPECTRAL_DENSITY_STR  = "noise_spectral_density";
-
-// Manifest =  1
-const static std::string SI_STRAIN_STR        = "strain";
-const static std::string SI_MASS_FRACTION_STR = "mass_fraction";
-
-// Manifest =  3
-const static std::string SI_RADIATED_POWER_QUANTITY_STR = "radiated_power_quantity";
-
-// Manifest =  4
-const static std::string SI_SWITCH_POSITIONS_STR = "switch_positions";
-
-
-typedef struct physical_units_t 
-{
-  
-  physical_units_t ()
-  {
-    interpretation  = PUI_SI_UNITS;
-    radians         = 128;
-    steradians      = 128;
-    meters          = 128;
-    kilograms       = 128;
-    seconds         = 128;
-    amperes         = 128;
-    kelvins         = 128;
-    moles           = 128;
-    candelas        = 128;
-    extension       = 128;
-  }
-  
-  physical_units_t (const physical_units_t& c)
-  {
-    interpretation  = c.interpretation;
-    radians         = c.radians;
-    steradians      = c.steradians;
-    meters          = c.meters;
-    kilograms       = c.kilograms;
-    seconds         = c.seconds;
-    amperes         = c.amperes;
-    kelvins         = c.kelvins;
-    moles           = c.moles;
-    candelas        = c.candelas;
-    extension       = c.extension;
-  }
-  
-  physical_units_t& operator = (const physical_units_t& c)
-  {
-    interpretation  = c.interpretation;
-    radians         = c.radians;
-    steradians      = c.steradians;
-    meters          = c.meters;
-    kilograms       = c.kilograms;
-    seconds         = c.seconds;
-    amperes         = c.amperes;
-    kelvins         = c.kelvins;
-    moles           = c.moles;
-    candelas        = c.candelas;
-    extension       = c.extension;
-    
-    return *this;
-  }
-  
-  const bool operator == (const physical_units_t& c) const
-  {
-    if ((interpretation  == c.interpretation)
-        && (radians      == c.radians)
-        && (steradians   == c.steradians)
-        && (meters       == c.meters)
-        && (kilograms    == c.kilograms)
-        && (seconds      == c.seconds)
-        && (amperes      == c.amperes)
-        && (kelvins      == c.kelvins)
-        && (moles        == c.moles)
-        && (candelas     == c.candelas)
-        && (extension    == c.extension)) {
-      
-      return true;
-    }    
-    return false;
-  }
-  
-  // Data
-  uint8_t interpretation;
-  uint8_t radians;
-  uint8_t steradians;
-  uint8_t meters;
-  uint8_t kilograms;
-  uint8_t seconds;
-  uint8_t amperes;
-  uint8_t kelvins;
-  uint8_t moles;
-  uint8_t candelas;
-  uint8_t extension;
-} Units;
- 
 namespace si_units_compact_representation_api {
+  
+  // SI UNIT PREFIXES / FACTORS
+  const static std::string SI_PREFIX_DECA_STR    = "deca";
+  const static std::string SI_PREFIX_HECTO_STR   = "hecto";
+  const static std::string SI_PREFIX_KILO_STR    = "kilo";
+  const static std::string SI_PREFIX_MEGA_STR    = "mega";
+  const static std::string SI_PREFIX_GIGA_STR    = "giga";
+  const static std::string SI_PREFIX_TERA_STR    = "tera";
+  const static std::string SI_PREFIX_PETA_STR    = "peta";
+  const static std::string SI_PREFIX_EXA_STR     = "exa";
+  const static std::string SI_PREFIX_ZETTA_STR   = "zetta";
+  const static std::string SI_PREFIX_YOTTA_STR   = "yotta";
+  const static std::string SI_PREFIX_DECI_STR    = "deci";
+  const static std::string SI_PREFIX_CENTI_STR   = "centi";
+  const static std::string SI_PREFIX_MILLI_STR   = "milli";
+  const static std::string SI_PREFIX_MICRO_STR   = "micro";
+  const static std::string SI_PREFIX_NANO_STR    = "nano";
+  const static std::string SI_PREFIX_PICO_STR    = "pico";
+  const static std::string SI_PREFIX_FEMTO_STR   = "femto";
+  const static std::string SI_PREFIX_ATTO_STR    = "atto";
+  const static std::string SI_PREFIX_ZEPTO_STR   = "zepto";
+  const static std::string SI_PREFIX_YOCTO_STR   = "yocto";
 
+  // SI UNIT NAMES
+  // Manifest =  1
+  const static std::string SI_METER_STR     = "meter";
+  const static std::string SI_KILOGRAM_STR  = "kilogram";
+  const static std::string SI_SECOND_STR    = "second";
+  const static std::string SI_AMPERE_STR    = "ampere";
+  const static std::string SI_KELVIN_STR    = "kelvin";
+  const static std::string SI_MOLE_STR      = "mole";
+  const static std::string SI_CANDELA_STR   = "candela";
+  const static std::string SI_RADIAN_STR    = "radian";
+  const static std::string SI_STERADIAN_STR = "steradian";
+
+  const static std::string SI_HERTZ_STR     = "hertz";
+  const static std::string SI_AREA_STR      = "area";
+  const static std::string SI_VOLUME_STR    = "volume";
+  const static std::string SI_LUMINANCE_STR = "luminance";
+  const static std::string SI_NEWTON_STR    = "newton";
+  const static std::string SI_PASCAL_STR    = "pascal";
+  const static std::string SI_JOULE_STR     = "joule";
+  const static std::string SI_WATT_STR      = "watt";
+  const static std::string SI_COULOMB_STR   = "coulomb";
+  const static std::string SI_VOLT_STR      = "volt";
+  const static std::string SI_FARAD_STR     = "farad";
+  const static std::string SI_OHM_STR       = "ohm";
+  const static std::string SI_SIEMENS_STR   = "siemens";
+  const static std::string SI_WEBER_STR     = "weber";
+  const static std::string SI_TESLA_STR     = "tesla";
+  const static std::string SI_HENRY_STR     = "henry";
+  const static std::string SI_LUMEN_STR     = "lumen";
+  const static std::string SI_LUX_STR       = "lux";
+  const static std::string SI_COUNT_STR     = "count";
+  const static std::string SI_DENSITY_STR   = "density";
+  const static std::string SI_ACCELERATION_STR            = "acceleration";
+  const static std::string SI_WAVE_NUMBER_STR             = "wavenumber";  
+  const static std::string SI_DEGREE_CELSIUS_STR          = "degree celsius";
+  const static std::string SI_SPECIFIC_VOLUME_STR         = "specific volume";
+  const static std::string SI_CURRENT_DENSITY_STR         = "current density";
+  const static std::string SI_NOISE_SPECTRAL_DENSITY_STR  = "noise spectral density";
+  const static std::string SI_MAGNETIC_FIELD_STRENGTH_STR = "magnetic field strength";
+  const static std::string SI_AMOUNT_OF_SUBSTANCE_CONCENTRATION_STR  = "amount of substance concentration";  
+  
+  // Manifest =  1
+  const static std::string SI_STRAIN_STR        = "strain";
+  const static std::string SI_MASS_FRACTION_STR = "mass fraction";
+
+  // Manifest =  3
+  const static std::string SI_RADIATED_POWER_QUANTITY_STR = "radiated power quantity";
+
+  // Manifest =  4
+  const static std::string SI_SWITCH_POSITIONS_STR = "switch positions";
+  
+  enum physical_units_interpretation_e {
+    PUI_SI_UNITS = 0,
+    PUI_RATIO_SI_UNITS = 1,
+    PUI_LOG10_SI_UNITS = 2,
+    PUI_LOG10_RATIO_SI_UNITS = 3,
+    PUI_DIGITAL_DATA = 4,
+    PUI_ARBITRARY = 5
+    
+    // 6–255 Reserved.
+  };
+
+  struct Units 
+  {
+    Units ();
+    Units (const Units& c);
+    Units& operator = (const Units& c);
+    const bool operator == (const Units& c) const;
+
+    // Data
+    uint8_t interpretation;
+    uint8_t radians;
+    uint8_t steradians;
+    uint8_t meters;
+    uint8_t kilograms;
+    uint8_t seconds;
+    uint8_t amperes;
+    uint8_t kelvins;
+    uint8_t moles;
+    uint8_t candelas;
+    uint8_t extension;
+  };
+  
+  // Wrapper class for application processing.
+  struct compact_si_units_t {
+    compact_si_units_t (double _val, const std::string& _factor, const Units& _units);
+    compact_si_units_t (const compact_si_units_t& c);
+    compact_si_units_t& operator = (const compact_si_units_t& c);
+    
+    // Data
+    double measurement_val_;
+    std::string si_factor_;
+    Units  si_units_;
+  };
+  
   // This will ne NOP if VC_SI_UNITS_ASSERT is defined.
   void si_units_assert_if(bool _b);
   
+  // SI unit Name, Symbol pair if Units object is valid.
+  std::tuple<bool, std::pair<std::string, std::string>> operator""_unit_sym(const char* _un, size_t _sz);
+  std::tuple<bool, std::pair<std::string, std::string>> decode_units(const Units& _u);
+    
   // SI Base Units, and, Radians, and Steradians.
   const Units encode_meter_unit();
   bool is_meter(const Units& _u);
@@ -964,42 +914,7 @@ namespace si_units_compact_representation_api {
   
   const Units encode_switch_position_unit();
   bool is_switch_position(const Units& _u);
-  
-  std::tuple<bool, std::pair<std::string, std::string>> decode_units(const Units& _u);
+
 }
-
-struct compact_si_units_t {
-  
-  compact_si_units_t (double _val, const std::string& _factor, const Units& _units)
-  {
-    measurement_val_ = _val;
-    si_factor_ = _factor;
-    si_units_  = _units;
-  }
-  
-  compact_si_units_t (const compact_si_units_t& c)
-  {
-    measurement_val_ = c.measurement_val_;
-    si_factor_ = c.si_factor_;
-    si_units_  = c.si_units_;
-  }
-  
-  compact_si_units_t& operator = (const compact_si_units_t& c)
-  {
-    measurement_val_ = c.measurement_val_;
-    si_factor_ = c.si_factor_;
-    si_units_  = c.si_units_;
-    
-    return *this;
-  }
-
-  // Data
-  double measurement_val_;
-  std::string si_factor_;
-  Units  si_units_;
-};
-
-extern std::map<std::string, std::string> g_si_unit_factor_display_sym_map_;
-extern std::map<std::string, std::string> g_si_unit_quantity_display_sym_map_ ;
 
 #endif /* _CS_EDM_SYS_UTILS_COMPACT_SI_UNITS_H_ */
