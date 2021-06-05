@@ -54,8 +54,6 @@ Please review the software before using it. You are welcome to contribute and im
   
   int main(int argc, char **argv)
   {
-   printf("hello world\n");
-
     // Unit representation only
     Units my_sensor_unit = si_units_compact_representation_api::encode_meter_unit();
 
@@ -80,7 +78,7 @@ Please review the software before using it. You are welcome to contribute and im
     }
 
    return 0;
-  }
+ }
 
 ```
 
