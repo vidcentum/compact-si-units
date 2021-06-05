@@ -49,24 +49,37 @@ Please review the software before using it. You are welcome to contribute and im
 ###### Please take a look at ```compact_si_units.h``` 
 ```
   Example: test.cpp
-  #include "<your source tree include path>/compact_si_units.h"
+  #include <iostream>
+  #include "csu/compact_si_units.h"  // drop the library in your source path.
   
-  // Unit representation only
-  physical_units_t my_sensor_unit = si_units_compact_representation_api::encode_meter_unit();
-  
-  // Packing the sensor reading
-  compact_si_units_t my_sensor_reading (/* double */ 10.0, /* factor */ "milli", my_sensor_unit);
-  
-  // You can use your application serialization strategy (e.g., JSON, XML etc.) of the compact_si_units_t object.
+  int main(int argc, char **argv)
+  {
+   printf("hello world\n");
 
-  // Decoding the given units
-  auto [result, my_unit] = si_units_compact_representation_api::decode_units(my_sensor_unit);
-  
-  // result is true (1) if the decoding of the Unit is successful with name of the unit and it print/gui symbol.
-  
-  // Checking a specific unit
-  if (si_units_compact_representation_api::is_meter(my_sensor_unit)) {
-    // Do some stuff...
+    // Unit representation only
+    Units my_sensor_unit = si_units_compact_representation_api::encode_meter_unit();
+
+    // Packing the sensor reading
+    compact_si_units_t my_sensor_reading (/* double */ 10.0, /* factor */ "milli", my_sensor_unit);
+
+    // You can use your application serialization strategy (e.g., JSON, XML etc.) of the compact_si_units_t object.
+
+    // Decoding the given units
+    auto [result, my_unit] = si_units_compact_representation_api::decode_units(my_sensor_unit);
+
+    // my_unit is an std::pair <unit_name, display_symbol>
+
+    // result is true (1) if the decoding of the Unit is successful with name of the unit and it print/gui symbol.
+    if (result) {
+      std::cout << "my_sensor_unit: " << 10.0 << "m" << my_unit.second << std::endl;
+    }
+
+    // Checking a specific unit
+    if (si_units_compact_representation_api::is_meter(my_sensor_unit)) {
+      // Do some stuff...
+    }
+
+   return 0;
   }
 
 ```
