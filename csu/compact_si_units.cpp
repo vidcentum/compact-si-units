@@ -1,13 +1,37 @@
 /*==========================LICENSE NOTICE==========================*/
 /*
  * Copyright (c) 2021 Vidcentum R&D Pvt Ltd, India.
- * License: Refer to LICENSE file of the software package.
+ * License: MIT. Refer to LICENSE file of the software package.
  * Email: support@vidcentum.com
  * Website: https://vidcentum.com
+*/
+/* MIT License
+
+  Copyright (c) 2021 Vidcentum
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
 */
 /*========================END LICENSE NOTICE========================*/
 
 #include <iostream>
+#include <map>
+#include <functional>
 #include "compact_si_units.h"
 
 namespace si_units_compact_representation_api {
@@ -43,6 +67,7 @@ namespace si_units_compact_representation_api {
   g_si_unit_quantity_display_sym_map_ {
     
     /* name                     -                gui/print symbol */
+    { SI_UNSUSPPORTED_UNIT_STR,                  ""    }, // unsupported
     { SI_METER_STR,                              "m"   },
     { SI_KILOGRAM_STR,                           "kg"  },
     { SI_SECOND_STR,                             "s"   },
@@ -85,6 +110,55 @@ namespace si_units_compact_representation_api {
     { SI_COUNT_STR,                              ""    }, // Depends on the deployment.
     { SI_SWITCH_POSITIONS_STR,                   "ON/OFF"  }
       
+  };
+  
+  std::map<std::string, std::function<const Units()>>
+  g_si_unit_encoder_map_ {
+    
+    /* name                     -                si unit encoding function */
+    { SI_UNSUSPPORTED_UNIT_STR,                  [](){ Units u; return u; } },
+    { SI_METER_STR,                              [](){ return encode_meter_unit(); } },
+    { SI_KILOGRAM_STR,                           [](){ return encode_kilogram_unit(); } },
+    { SI_SECOND_STR,                             [](){ return encode_second_unit(); } },
+    { SI_AMPERE_STR,                             [](){ return encode_ampere_unit(); } },
+    { SI_KELVIN_STR,                             [](){ return encode_kelvin_unit(); } },
+    { SI_MOLE_STR,                               [](){ return encode_mole_unit(); } },
+    { SI_CANDELA_STR,                            [](){ return encode_candela_unit(); } },
+    { SI_RADIAN_STR,                             [](){ return encode_radian_unit(); } },
+    { SI_STERADIAN_STR,                          [](){ return encode_steradian_unit(); } },
+    { SI_HERTZ_STR,                              [](){ return encode_hertz_unit(); } },
+    { SI_AREA_STR,                               [](){ return encode_area_unit(); } },
+    { SI_VOLUME_STR,                             [](){ return encode_volume_unit(); } },
+    { SI_ACCELERATION_STR,                       [](){ return encode_acceleration_unit(); } },
+    { SI_WAVE_NUMBER_STR,                        [](){ return encode_wave_number_unit(); } },
+    { SI_DENSITY_STR,                            [](){ return encode_density_unit(); } },
+    { SI_SPECIFIC_VOLUME_STR,                    [](){ return encode_specific_volume_unit(); } },
+    { SI_CURRENT_DENSITY_STR,                    [](){ return encode_current_density_unit(); } },
+    { SI_MAGNETIC_FIELD_STRENGTH_STR,            [](){ return encode_magnetic_field_strength_unit(); } },
+    { SI_AMOUNT_OF_SUBSTANCE_CONCENTRATION_STR,  [](){ return encode_amount_of_substance_concentration_unit(); } },
+    { SI_LUMINANCE_STR,                          [](){ return encode_luminance_unit(); } }, 
+    { SI_NEWTON_STR,                             [](){ return encode_newton_unit(); } },
+    { SI_PASCAL_STR,                             [](){ return encode_pascal_unit(); } },
+    { SI_JOULE_STR,                              [](){ return encode_joule_unit(); } },
+    { SI_WATT_STR,                               [](){ return encode_watt_unit(); } },
+    { SI_COULOMB_STR,                            [](){ return encode_coulomb_unit(); } },
+    { SI_VOLT_STR,                               [](){ return encode_volt_unit(); } },
+    { SI_FARAD_STR,                              [](){ return encode_farad_unit(); } },
+    { SI_OHM_STR,                                [](){ return encode_ohm_unit(); } },
+    { SI_SIEMENS_STR,                            [](){ return encode_siemens_unit(); } },
+    { SI_WEBER_STR,                              [](){ return encode_weber_unit(); } },
+    { SI_TESLA_STR,                              [](){ return encode_tesla_unit(); } },
+    { SI_HENRY_STR,                              [](){ return encode_henry_unit(); } },
+    { SI_DEGREE_CELSIUS_STR,                     [](){ return encode_degree_celsius_unit(); } },
+    { SI_LUMEN_STR,                              [](){ return encode_lumen_unit(); } },
+    { SI_LUX_STR,                                [](){ return encode_lux_unit(); } },
+    { SI_NOISE_SPECTRAL_DENSITY_STR,             [](){ return encode_noise_spectral_density_unit(); } },
+    { SI_MASS_FRACTION_STR,                      [](){ return encode_mass_fraction_unit(); } },
+    { SI_STRAIN_STR,                             [](){ return encode_strain_unit(); } },
+    { SI_RADIATED_POWER_QUANTITY_STR,            [](){ return encode_radiated_power_quantity_unit(); } },
+    { SI_COUNT_STR,                              [](){ return encode_count_unit(); } },
+    { SI_SWITCH_POSITIONS_STR,                   [](){ return encode_switch_position_unit(); } }
+    
   };
   
   Units::Units ()
@@ -176,12 +250,6 @@ namespace si_units_compact_representation_api {
     return *this;
   }
   
-  void si_units_assert_if(bool _b) 
-  { 
-#ifdef VC_SI_UNITS_ASSERT
-    if(!_b) exit(0);
-#endif
-  }
   
   // Decodes the given units. 
   // Returns  true and a pair of unit name and its gui / display string.
@@ -1529,7 +1597,20 @@ namespace si_units_compact_representation_api {
       return du;
     } catch (std::out_of_range& oee) {
       std::tuple<bool, std::pair<std::string, std::string>>
-      du{false, {_un, ""}};
+      du{false, {SI_UNSUSPPORTED_UNIT_STR, g_si_unit_quantity_display_sym_map_.at(SI_UNSUSPPORTED_UNIT_STR)}};
+      return du;
+    }
+  }
+  
+  std::tuple<bool, std::pair<std::string, Units>> operator""_unit(const char* _un, size_t _sz)
+  {
+    try {
+      std::tuple<bool, std::pair<std::string, Units>>
+      du{true, {_un, g_si_unit_encoder_map_.at(_un)()}};
+      return du;
+    } catch (std::out_of_range& oee) {
+      std::tuple<bool, std::pair<std::string, Units>>
+      du{false, {SI_UNSUSPPORTED_UNIT_STR, g_si_unit_encoder_map_.at(SI_UNSUSPPORTED_UNIT_STR)() }};
       return du;
     }
   }
