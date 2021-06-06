@@ -1,9 +1,31 @@
 /*==========================LICENSE NOTICE==========================*/
 /*
  * Copyright (c) 2021 Vidcentum R&D Pvt Ltd, India.
- * License: Refer to LICENSE file of the software package.
+ * License: MIT. Refer to LICENSE file of the software package.
  * Email: support@vidcentum.com
  * Website: https://vidcentum.com
+*/
+/* MIT License
+
+  Copyright (c) 2021 Vidcentum
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
 */
 /*========================END LICENSE NOTICE========================*/
 
@@ -11,7 +33,6 @@
 #define _CS_EDM_SYS_UTILS_COMPACT_SI_UNITS_H_
 
 #include <string>
-#include <map>
 #include <tuple>
 
 /* 
@@ -20,7 +41,7 @@
  *            [2] Hamilton, B., “A compact representation of physical units,” Hewlett-Packard Company, 
  *                Palo Alto,CA, Hewlett-Packard Laboratories Technical Report HPL-96-61, 1995.
  *            [3] A concise summary of the International System of Units, SI
- *                https://www.bipm.org/documents/20126/41483022/SI-Brochure-9-concise-EN.pdf/2fda4656-e236-0fcb-3867-36ca74eea4e3?version=1.2&download=false
+ *                
  * This small utility library implements some parts of the 4.11 Physical Units and Annex K of ISO/IEC/IEEE 21450:2010(E)
  * The measurements from modbus device should be represented in a compact way to communicate
  * with the other modules.
@@ -689,7 +710,10 @@ namespace si_units_compact_representation_api {
   const static std::string SI_PREFIX_YOCTO_STR   = "yocto";
 
   // SI UNIT NAMES
-  // Manifest =  1
+  // Manifest =  0
+  
+  const static std::string SI_UNSUSPPORTED_UNIT_STR   = "unsupported unit";
+  
   const static std::string SI_METER_STR     = "meter";
   const static std::string SI_KILOGRAM_STR  = "kilogram";
   const static std::string SI_SECOND_STR    = "second";
@@ -783,14 +807,18 @@ namespace si_units_compact_representation_api {
     Units  si_units_;
   };
   
-  // This will ne NOP if VC_SI_UNITS_ASSERT is defined.
-  void si_units_assert_if(bool _b);
+  // Compact Unit Representation APIs
   
-  // SI unit Name, Symbol pair if Units object is valid.
+  // SI unit Name, Symbol pair if unit string is valid.
   std::tuple<bool, std::pair<std::string, std::string>> operator""_unit_sym(const char* _un, size_t _sz);
+  
+  // SI unit Name, Units pair if unit string is valid.
+  std::tuple<bool, std::pair<std::string, Units>> operator""_unit(const char* _un, size_t _sz);
+  
+  // SI unit Name, Symbol pair if unit string is valid.
   std::tuple<bool, std::pair<std::string, std::string>> decode_units(const Units& _u);
-    
-  // SI Base Units, and, Radians, and Steradians.
+  
+  // SI Base Units
   const Units encode_meter_unit();
   bool is_meter(const Units& _u);
   
@@ -812,6 +840,8 @@ namespace si_units_compact_representation_api {
   const Units encode_candela_unit();
   bool is_candela(const Units& _u);
   
+  // ISO/IEC/IEEE 21450:2010(E) suggests Radian and Steradian 
+  // units in the compact represenation
   const Units encode_radian_unit();
   bool is_radian(const Units& _u);
   
@@ -896,10 +926,7 @@ namespace si_units_compact_representation_api {
   
   const Units encode_lux_unit();
   bool is_lux(const Units& _u);
-  
-  const Units encode_count_unit();
-  bool is_count(const Units& _u);
-  
+    
   const Units encode_noise_spectral_density_unit();
   bool is_noise_spectral_density(const Units& _u);
   
@@ -912,9 +939,13 @@ namespace si_units_compact_representation_api {
   const Units encode_radiated_power_quantity_unit();
   bool is_radiated_power_quantity(const Units& _u);
   
+  const Units encode_count_unit();
+  bool is_count(const Units& _u);
+  
+  
   const Units encode_switch_position_unit();
   bool is_switch_position(const Units& _u);
-
+  
 }
 
 #endif /* _CS_EDM_SYS_UTILS_COMPACT_SI_UNITS_H_ */
