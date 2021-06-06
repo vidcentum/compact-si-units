@@ -161,6 +161,55 @@ namespace si_units_compact_representation_api {
     
   };
   
+  std::map<std::string, std::function<bool(const Units&)>>
+  g_si_unit_check_map_ {
+    
+    /* name                     -                si unit encoding function */
+    { SI_UNSUSPPORTED_UNIT_STR,                  [](const Units& _u){ return false; } },
+    { SI_METER_STR,                              [](const Units& _u){ return is_meter(_u); } },
+    { SI_KILOGRAM_STR,                           [](const Units& _u){ return is_kilogram(_u); } },
+    { SI_SECOND_STR,                             [](const Units& _u){ return is_second(_u); } },
+    { SI_AMPERE_STR,                             [](const Units& _u){ return is_ampere(_u); } },
+    { SI_KELVIN_STR,                             [](const Units& _u){ return is_kelvin(_u); } },
+    { SI_MOLE_STR,                               [](const Units& _u){ return is_mole(_u); } },
+    { SI_CANDELA_STR,                            [](const Units& _u){ return is_candela(_u); } },
+    { SI_RADIAN_STR,                             [](const Units& _u){ return is_radian(_u); } },
+    { SI_STERADIAN_STR,                          [](const Units& _u){ return is_steradian(_u); } },
+    { SI_HERTZ_STR,                              [](const Units& _u){ return is_hertz(_u); } },
+    { SI_AREA_STR,                               [](const Units& _u){ return is_area(_u); } },
+    { SI_VOLUME_STR,                             [](const Units& _u){ return is_volume(_u); } },
+    { SI_ACCELERATION_STR,                       [](const Units& _u){ return is_acceleration(_u); } },
+    { SI_WAVE_NUMBER_STR,                        [](const Units& _u){ return is_wave_number(_u); } },
+    { SI_DENSITY_STR,                            [](const Units& _u){ return is_density(_u); } },
+    { SI_SPECIFIC_VOLUME_STR,                    [](const Units& _u){ return is_specific_volume(_u); } },
+    { SI_CURRENT_DENSITY_STR,                    [](const Units& _u){ return is_current_density(_u); } },
+    { SI_MAGNETIC_FIELD_STRENGTH_STR,            [](const Units& _u){ return is_magnetic_field_strength(_u); } },
+    { SI_AMOUNT_OF_SUBSTANCE_CONCENTRATION_STR,  [](const Units& _u){ return is_amount_of_substance_concentration(_u); } },
+    { SI_LUMINANCE_STR,                          [](const Units& _u){ return is_luminance(_u); } }, 
+    { SI_NEWTON_STR,                             [](const Units& _u){ return is_newton(_u); } },
+    { SI_PASCAL_STR,                             [](const Units& _u){ return is_pascal(_u); } },
+    { SI_JOULE_STR,                              [](const Units& _u){ return is_joule(_u); } },
+    { SI_WATT_STR,                               [](const Units& _u){ return is_watt(_u); } },
+    { SI_COULOMB_STR,                            [](const Units& _u){ return is_coulomb(_u); } },
+    { SI_VOLT_STR,                               [](const Units& _u){ return is_volt(_u); } },
+    { SI_FARAD_STR,                              [](const Units& _u){ return is_farad(_u); } },
+    { SI_OHM_STR,                                [](const Units& _u){ return is_ohm(_u); } },
+    { SI_SIEMENS_STR,                            [](const Units& _u){ return is_siemens(_u); } },
+    { SI_WEBER_STR,                              [](const Units& _u){ return is_weber(_u); } },
+    { SI_TESLA_STR,                              [](const Units& _u){ return is_tesla(_u); } },
+    { SI_HENRY_STR,                              [](const Units& _u){ return is_henry(_u); } },
+    { SI_DEGREE_CELSIUS_STR,                     [](const Units& _u){ return is_degree_celsius(_u); } },
+    { SI_LUMEN_STR,                              [](const Units& _u){ return is_lumen(_u); } },
+    { SI_LUX_STR,                                [](const Units& _u){ return is_lux(_u); } },
+    { SI_NOISE_SPECTRAL_DENSITY_STR,             [](const Units& _u){ return is_noise_spectral_density(_u); } },
+    { SI_MASS_FRACTION_STR,                      [](const Units& _u){ return is_mass_fraction(_u); } },
+    { SI_STRAIN_STR,                             [](const Units& _u){ return is_strain(_u); } },
+    { SI_RADIATED_POWER_QUANTITY_STR,            [](const Units& _u){ return is_radiated_power_quantity(_u); } },
+    { SI_COUNT_STR,                              [](const Units& _u){ return is_count(_u); } },
+    { SI_SWITCH_POSITIONS_STR,                   [](const Units& _u){ return is_switch_position(_u); } }
+    
+  };
+  
   Units::Units ()
   {
     interpretation  = PUI_SI_UNITS;
@@ -256,287 +305,14 @@ namespace si_units_compact_representation_api {
   //          false and a pair of empty strings.
   std::tuple<bool, std::pair<std::string, std::string>> decode_units(const Units& _u)
   {
-    if (is_meter(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_METER_STR, g_si_unit_quantity_display_sym_map_.at(SI_METER_STR)}};
-      
-      return du;
-    }
-    if (is_kilogram(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_KILOGRAM_STR, g_si_unit_quantity_display_sym_map_.at(SI_KILOGRAM_STR)}};
-      
-      return du;
-    }
+    auto pu = std::find_if(g_si_unit_check_map_.begin(), g_si_unit_check_map_.end()
+                            , [&](std::pair<std::string, std::function<bool(const Units&)>> _unit_check) {
+                              return _unit_check.second(_u);
+                            });
     
-    if (is_second(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_SECOND_STR, g_si_unit_quantity_display_sym_map_.at(SI_SECOND_STR)}};
-      
-      return du;
-    }
-    
-    if (is_ampere(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_AMPERE_STR, g_si_unit_quantity_display_sym_map_.at(SI_AMPERE_STR)}};
-      
-      return du;
-    }
-    
-    if (is_kelvin(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_KELVIN_STR, g_si_unit_quantity_display_sym_map_.at(SI_KELVIN_STR)}};
-      
-      return du;
-    }
-    
-    if (is_mole(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_MOLE_STR, g_si_unit_quantity_display_sym_map_.at(SI_MOLE_STR)}};
-      
-      return du;
-    }
-    
-    if (is_candela(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_CANDELA_STR, g_si_unit_quantity_display_sym_map_.at(SI_CANDELA_STR)}};
-      
-      return du;
-    }
-    
-    if (is_radian(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_RADIAN_STR, g_si_unit_quantity_display_sym_map_.at(SI_RADIAN_STR)}};
-      
-      return du;
-    }
-    
-    if (is_steradian(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_STERADIAN_STR, g_si_unit_quantity_display_sym_map_.at(SI_STERADIAN_STR)}};
-      
-      return du;
-    }
-        
-    if (is_hertz(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_HERTZ_STR, g_si_unit_quantity_display_sym_map_.at(SI_HERTZ_STR)}};
-      
-      return du;
-    }
-    
-    if (is_area(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_AREA_STR, g_si_unit_quantity_display_sym_map_.at(SI_AREA_STR)}};
-      
-      return du;
-    }
-    
-    if (is_volume(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_VOLUME_STR, g_si_unit_quantity_display_sym_map_.at(SI_VOLUME_STR)}};
-      
-      return du;
-    }
-    
-    if (is_acceleration(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_ACCELERATION_STR, g_si_unit_quantity_display_sym_map_.at(SI_ACCELERATION_STR)}};
-      
-      return du;
-    }
-    if (is_wave_number(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_WAVE_NUMBER_STR, g_si_unit_quantity_display_sym_map_.at(SI_WAVE_NUMBER_STR)}};
-      
-      return du;
-    }
-    
-    if (is_density(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_DENSITY_STR, g_si_unit_quantity_display_sym_map_.at(SI_DENSITY_STR)}};
-      
-      return du;
-    }
-    
-    if (is_specific_volume(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_SPECIFIC_VOLUME_STR, g_si_unit_quantity_display_sym_map_.at(SI_SPECIFIC_VOLUME_STR)}};
-      
-      return du;
-    }
-    
-    if (is_current_density(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_CURRENT_DENSITY_STR, g_si_unit_quantity_display_sym_map_.at(SI_CURRENT_DENSITY_STR)}};
-      
-      return du;
-    }
-    
-    if (is_magnetic_field_strength(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_MAGNETIC_FIELD_STRENGTH_STR, g_si_unit_quantity_display_sym_map_.at(SI_MAGNETIC_FIELD_STRENGTH_STR)}};
-      
-      return du;
-    }
-    
-    if (is_amount_of_substance_concentration(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_AMOUNT_OF_SUBSTANCE_CONCENTRATION_STR, g_si_unit_quantity_display_sym_map_.at(SI_AMOUNT_OF_SUBSTANCE_CONCENTRATION_STR)}};
-      
-      return du;
-    }
-    
-    if (is_luminance(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_LUMINANCE_STR, g_si_unit_quantity_display_sym_map_.at(SI_LUMINANCE_STR)}};
-      
-      return du;
-    }
-    
-    if (is_newton(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_NEWTON_STR, g_si_unit_quantity_display_sym_map_.at(SI_NEWTON_STR)}};
-      
-      return du;
-    }
-    
-    if (is_pascal(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_PASCAL_STR, g_si_unit_quantity_display_sym_map_.at(SI_PASCAL_STR)}};
-      
-      return du;
-    }
-    
-    if (is_joule(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_JOULE_STR, g_si_unit_quantity_display_sym_map_.at(SI_JOULE_STR)}};
-      
-      return du;
-    }
-    
-    if (is_watt(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_WATT_STR, g_si_unit_quantity_display_sym_map_.at(SI_WATT_STR)}};
-      
-      return du;
-    }
-    
-    if (is_coulomb(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_COULOMB_STR, g_si_unit_quantity_display_sym_map_.at(SI_COULOMB_STR)}};
-      
-      return du;
-    }
-    
-    if (is_volt(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_VOLT_STR, g_si_unit_quantity_display_sym_map_.at(SI_VOLT_STR)}};
-      
-      return du;
-    }
-    
-    if (is_farad(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_FARAD_STR, g_si_unit_quantity_display_sym_map_.at(SI_FARAD_STR)}};
-      
-      return du;
-    }
-    
-    if (is_ohm(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_OHM_STR, g_si_unit_quantity_display_sym_map_.at(SI_OHM_STR)}};
-      
-      return du;
-    }
-    
-    if (is_siemens(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_SIEMENS_STR, g_si_unit_quantity_display_sym_map_.at(SI_SIEMENS_STR)}};
-      
-      return du;
-    }
-    
-    if (is_weber(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_WEBER_STR, g_si_unit_quantity_display_sym_map_.at(SI_WEBER_STR)}};
-      
-      return du;
-    }
-    
-    if (is_tesla(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_TESLA_STR, g_si_unit_quantity_display_sym_map_.at(SI_TESLA_STR)}};
-      
-      return du;
-    }
-    
-    if (is_henry(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_HENRY_STR, g_si_unit_quantity_display_sym_map_.at(SI_HENRY_STR)}};
-      
-      return du;
-    }
-    
-    if (is_degree_celsius(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_DEGREE_CELSIUS_STR, g_si_unit_quantity_display_sym_map_.at(SI_DEGREE_CELSIUS_STR)}};
-      
-      return du;
-    }
-    
-    if (is_lumen(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_LUMEN_STR, g_si_unit_quantity_display_sym_map_.at(SI_LUMEN_STR)}};
-      
-      return du;
-    }
-    
-    if (is_lux(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_LUX_STR, g_si_unit_quantity_display_sym_map_.at(SI_LUX_STR)}};
-      
-      return du;
-    }
-    
-    if (is_count(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_COUNT_STR, g_si_unit_quantity_display_sym_map_.at(SI_COUNT_STR)}};
-      
-      return du;
-    }
-    
-    if (is_noise_spectral_density(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_NOISE_SPECTRAL_DENSITY_STR, g_si_unit_quantity_display_sym_map_.at(SI_NOISE_SPECTRAL_DENSITY_STR)}};
-      
-      return du;
-    }
-    
-    if (is_mass_fraction(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_MASS_FRACTION_STR, g_si_unit_quantity_display_sym_map_.at(SI_MASS_FRACTION_STR)}};
-      
-      return du;
-    }
-    
-    if (is_strain(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_STRAIN_STR, g_si_unit_quantity_display_sym_map_.at(SI_STRAIN_STR)}};
-      
-      return du;
-    }
-    
-    if (is_radiated_power_quantity(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_RADIATED_POWER_QUANTITY_STR, g_si_unit_quantity_display_sym_map_.at(SI_RADIATED_POWER_QUANTITY_STR)}};
-      
-      return du;
-    }
-    
-    if (is_switch_position(_u)) {
-      std::tuple<bool, std::pair<std::string, std::string>> 
-      du{true, {SI_SWITCH_POSITIONS_STR, g_si_unit_quantity_display_sym_map_.at(SI_SWITCH_POSITIONS_STR)}};
+    if (pu != g_si_unit_check_map_.end()) {
+      std::pair<bool, std::pair<std::string, std::string>> 
+      du {true, {pu->first, g_si_unit_quantity_display_sym_map_.at(pu->first)}};
       
       return du;
     }
@@ -546,6 +322,7 @@ namespace si_units_compact_representation_api {
   }
   
   /*
+    @@brief Returns Units encoded with the following table.
     +-----------------------------------------------------------------------------+
     |                             Distance (meter, m)                             |
     +----------+------------+-----+-----+-----+-----+-----+-----+-----+-----+-----+
@@ -845,6 +622,7 @@ namespace si_units_compact_representation_api {
   {
     return (_u == encode_volume_unit());
   }
+  
   /*
     +-----------------------------------------------------------------------------+
     |         Acceleration (meter per second squared, acceleration, m/s^2)        |
