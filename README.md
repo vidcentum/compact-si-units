@@ -48,46 +48,63 @@ Please review the software before using it. You are welcome to contribute and im
 #### Simple APIs
 ###### Please take a look at ```compact_si_units.h``` 
 ```
-  Example: test.cpp
-  #include <iostream>
-  #include "csu/compact_si_units.h"
+Example: test.cpp
+#include <iostream>
+#include "csu/compact_si_units.h"
 
-  using namespace si_units_compact_representation_api;
+using namespace si_units_compact_representation_api;
  
-  int main(int argc, char **argv)
-  {
-    // Unit representation only
-    Units my_sensor_unit = encode_meter_unit();
+int main(int argc, char **argv)
+{
+  // Please refer to csu/compact_si_units.h for unit name strings, prefix strings, and manifest constants.
+  // You may extend the library with new Unit representations easily. 
+  
+  // Get encoded Units for the unit meter.
+  Units my_sensor_unit = encode_meter_unit();
+  
+  // Packing the sensor reading
+  compact_si_units_t my_sensor_reading (/* double */ 10.1, /* factor */ SI_PREFIX_MILLI_STR, my_sensor_unit);
+  
+  // You can use your application serialization strategy (e.g., JSON, XML etc.) of the compact_si_units_t object.
 
-    // Packing the sensor reading
-    compact_si_units_t my_sensor_reading (/* double */ 10.1, /* factor */ SI_PREFIX_MILLI_STR, my_sensor_unit);
-
-    // You can use your application serialization strategy (e.g., JSON, XML etc.) of the compact_si_units_t object.
-
-    // Decoding the given units
-    auto [result, my_unit] = decode_units(my_sensor_unit);
-
-    // my_unit is std::pair<unit_name, display_symbol>
-
-    // result is true (1) if the decoding of the Unit is successful with name of the unit and it print/gui symbol.
-    if (result) {
-      std::cout << "my_sensor_unit: " << 10.1 << "m" << my_unit.second << std::endl;
-    }
-
-    // Checking a specific unit
-    if (is_meter(my_sensor_unit)) {
-      // Do some stuff...
-    }
-
-    // To get the symbol of the unit.
-    auto [is_meter_sym, meter_unit_sym] = "meter"_unit_sym;
-
-    if (is_meter_sym) {
-      std::cout << "Symbol: " << meter_unit_sym.second << std::endl;
-    }
-
-    return 0;
+  // Decoding the given units
+  auto [result, my_unit] = decode_units(my_sensor_unit);
+  
+  // my_unit is std::pair<unit_name, display_symbol>
+  
+  // result is true (1) if the decoding of the Unit is successful with name of the unit and it print/gui symbol.
+  if (result) {
+    std::cout << "my_sensor_unit: " << 10.1 << "m" << my_unit.second << std::endl;
   }
+  
+  // Checking a specific unit
+  if (is_meter(my_sensor_unit)) {
+    // Do some stuff...
+  }
+  
+  // To get the symbol of the unit.
+  auto [is_meter_sym, meter_unit_sym] = "meter"_unit_sym;
+  if (is_meter_sym) {
+    std::cout << "Symbol: " << meter_unit_sym.second << std::endl;
+  }
+  
+  // To get Units object through operator "" i.e., as literal.
+  auto [is_unit, a_unit] = "amount of substance concentration"_unit;
+  if (is_unit) {
+    // Just to check the encoded units can be decoded ...
+    auto [is_that_unit, that_unit] = decode_units(a_unit.second);
+    std::cout << "Unit: " << a_unit.first << " Symbol: " << that_unit.second << std::endl;
+  }
+
+  // This returns unsupported unit. "my new sensor" is not added to the unit represenation.
+  auto [is_supported_unit, unsupported_unit] = "my new sensor"_unit;
+  std::cout << "Unit: " << unsupported_unit.first << std::endl;
+  
+  // Please refer to csu/compact_si_units.h for unit name strings, prefix strings, and manifest constants.
+  // You may extend the library with new Unit representations easily. 
+    
+  return 0;
+}
 
 ```
 
