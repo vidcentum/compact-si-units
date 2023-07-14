@@ -1,13 +1,13 @@
 /*==========================LICENSE NOTICE==========================*/
 /*
- * Copyright (c) 2021 Vidcentum R&D Pvt Ltd, India.
+ * Copyright (c) 2020-2023 Vidcentum Technologies Pvt Ltd, India. (CIN: U72200TG2009PTC063723)
  * License: MIT. Refer to LICENSE file of the software package.
  * Email: support@vidcentum.com
  * Website: https://vidcentum.com
 */
 /* MIT License
 
-  Copyright (c) 2021 Vidcentum
+  Copyright (c) 2020-2023 Vidcentum
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
