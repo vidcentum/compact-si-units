@@ -17,8 +17,8 @@ Please review the software before using it. You are welcome to contribute and im
  * Platform code: VC.SDL
  * Type of software: Application.
  * License: MIT License. Refer to LICENSE file of the software package.
- * Company: Vidcentum R&D Pvt Ltd, India (CIN: U72200TG2009PTC063723).
- * Copyright (c) 2020-2021.
+ * Company: Vidcentum Technologies Pvt Ltd, India (CIN: U72200TG2009PTC063723).
+ * Copyright (c) 2020-2023.
  * Email: support@vidcentum.com
  * Website: https://vidcentum.com
  * Address: Plot No. 1-62/20, Kavuri Hills, 
