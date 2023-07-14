@@ -12,9 +12,9 @@ Please review the software before using it. You are welcome to contribute and im
 ```
 /*==========================LICENSE NOTICE==========================*/
 /*
- * Software:  Smart Data Logger Platform (Compact SI Units).
- * Product code: VC.SDL.CSU
- * Platform code: VC.SDL
+ * Software:  Edge AI Platform (Compact SI Units).
+ * Platform code: VC.EDGE.AI
+ * Product code: VC.EDGE.AI.CSU
  * Type of software: Application.
  * License: MIT License. Refer to LICENSE file of the software package.
  * Company: Vidcentum Technologies Pvt Ltd, India (CIN: U72200TG2009PTC063723).
