@@ -1,4 +1,4 @@
-# Vidcentum Smart Data Logger Platform
+# Vidcentum Edge AI Platform
 
 ## Project: compact-si-units (Code: VC.SDL.CSU)
 **Brief Description:** 
