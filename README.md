@@ -1,6 +1,6 @@
 # Vidcentum Edge AI Platform
 
-## Project: compact-si-units (Code: VC.SDL.CSU)
+## Project: compact-si-units (Code: VC.EDGE.AI.CSU)
 **Brief Description:** 
 Utility library to represent compact SI units. Implements some parts of the 4.11 Physical Units and Annex K of ISO/IEC/IEEE 21450:2010(E). 
 
