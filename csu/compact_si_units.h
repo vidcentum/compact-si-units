@@ -32,6 +32,7 @@
 #ifndef _CS_EDM_SYS_UTILS_COMPACT_SI_UNITS_H_
 #define _CS_EDM_SYS_UTILS_COMPACT_SI_UNITS_H_
 
+#include <cstdint>
 #include <string>
 #include <tuple>
 
